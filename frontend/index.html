@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Smart Bharat | AI-Powered Civic Companion — Government of India Initiative</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- Top Government Bar -->
+<div class="gov-top-bar">
+  <div class="container gov-top-inner">
+    <div class="gov-left">
+      <span>🇮🇳 भारत सरकार | Government of India</span>
+    </div>
+    <div class="gov-right">
+      <a href="#">Skip to Main Content</a>
+      <span>|</span>
+      <a href="#">A-</a> <a href="#">A</a> <a href="#">A+</a>
+      <span>|</span>
+      <a href="#">हिन्दी</a> <a href="#">English</a>
+    </div>
+  </div>
+</div>
+
+<!-- Tricolor Stripe -->
+<div class="tricolor-stripe">
+  <div></div><div></div><div></div>
+</div>
+
+<!-- Main Header with Emblem -->
+<header class="main-header">
+  <div class="container header-inner">
+    <div class="emblem-section">
+      <div class="ashoka">
+        <svg viewBox="0 0 100 100" width="70" height="70">
+          <circle cx="50" cy="50" r="45" fill="none" stroke="#000080" stroke-width="3"/>
+          <circle cx="50" cy="50" r="8" fill="#000080"/>
+          <g stroke="#000080" stroke-width="2">
+            <line x1="50" y1="5" x2="50" y2="95"/>
+            <line x1="5" y1="50" x2="95" y2="50"/>
+            <line x1="18" y1="18" x2="82" y2="82"/>
+            <line x1="82" y1="18" x2="18" y2="82"/>
+            <line x1="27" y1="8" x2="73" y2="92"/>
+            <line x1="73" y1="8" x2="27" y2="92"/>
+            <line x1="8" y1="27" x2="92" y2="73"/>
+            <line x1="92" y1="27" x2="8" y2="73"/>
+            <line x1="12" y1="38" x2="88" y2="62"/>
+            <line x1="88" y1="38" x2="12" y2="62"/>
+            <line x1="38" y1="12" x2="62" y2="88"/>
+            <line x1="62" y1="12" x2="38" y2="88"/>
+          </g>
+        </svg>
+      </div>
+      <div class="header-text">
+        <h1>Smart Bharat</h1>
+        <p class="tagline">स्मार्ट भारत — AI-Powered Civic Companion</p>
+        <p class="subtitle">An Initiative for Digital India · सत्यमेव जयते</p>
+      </div>
+    </div>
+    <div class="header-badges">
+      <div class="mission-badge">
+        <div class="badge-icon">🎯</div>
+        <div>
+          <strong>Digital India</strong>
+          <small>Powered by Gemini AI</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Navigation Bar -->
+<nav class="nav-bar">
+  <div class="container">
+    <ul class="nav-tabs">
+      <li class="nav-tab active" data-tab="chat">
+        <span class="nav-icon">🗣️</span>
+        <span>Ask Bharat Mitra</span>
+      </li>
+      <li class="nav-tab" data-tab="report">
+        <span class="nav-icon">📋</span>
+        <span>Register Grievance</span>
+      </li>
+      <li class="nav-tab" data-tab="schemes">
+        <span class="nav-icon">🏛️</span>
+        <span>Government Schemes</span>
+      </li>
+      <li class="nav-tab" data-tab="track">
+        <span class="nav-icon">🔍</span>
+        <span>Track Status</span>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Notice Ticker -->
+<div class="notice-ticker">
+  <div class="container ticker-inner">
+    <span class="ticker-label">📢 LATEST</span>
+    <div class="ticker-content">
+      <span>✨ New: AI-powered grievance filing now available in 22 Indian languages</span>
+      <span>🎁 Over 100+ government schemes indexed</span>
+      <span>🏆 Powered by Google Gemini AI · Build with AI 2025</span>
+    </div>
+  </div>
+</div>
+
+<!-- Main Content -->
+<main class="container main-content">
+
+<!-- CHAT TAB -->
+<section id="chat" class="tab-content active">
+  <div class="page-header">
+    <div class="page-header-line"></div>
+    <h2>Ask Bharat Mitra <span class="hindi-sub">— भारत मित्र से पूछें</span></h2>
+    <p>Your intelligent civic assistant. Ask about any government service, scheme, or process in your preferred language.</p>
+  </div>
+
+  <div class="content-card">
+    <div class="card-header">
+      <span class="card-icon">💬</span>
+      <div>
+        <h3>AI Conversation</h3>
+        <small>Multilingual · Instant · Free</small>
+      </div>
+      <span class="live-badge"><span class="live-dot"></span>ONLINE</span>
+    </div>
+
+    <div class="chat-box" id="chatBox">
+      <div class="msg bot">
+        <div class="avatar">🇮🇳</div>
+        <div class="msg-content">
+          <div class="msg-name">Bharat Mitra <span class="verified">✓ Verified AI</span></div>
+          <p>नमस्ते 🙏 Namaste! I am <b>Bharat Mitra</b>, your official AI civic assistant.</p>
+          <p>You can ask me about:</p>
+          <ul>
+            <li>📄 Government documents & procedures</li>
+            <li>🎁 Welfare schemes & eligibility</li>
+            <li>🏥 Health, education & subsidy programs</li>
+            <li>📞 Contact information for departments</li>
+          </ul>
+          <p><i>Reply available in 22 Indian languages.</i></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-input-wrapper">
+      <input id="chatInput" placeholder="Type your question in any language..." />
+      <button class="btn-primary" onclick="sendChat()">
+        Submit Query
+        <span>➤</span>
+      </button>
+    </div>
+
+    <div class="quick-section">
+      <p class="quick-label">🔥 POPULAR QUERIES</p>
+      <div class="quick-prompts">
+        <span class="chip" onclick="quickAsk('How do I apply for a passport?')">🛂 Passport Application</span>
+        <span class="chip" onclick="quickAsk('मुझे राशन कार्ड कैसे मिलेगा?')">🍚 राशन कार्ड</span>
+        <span class="chip" onclick="quickAsk('PM Kisan Yojana details')">🌾 PM-KISAN</span>
+        <span class="chip" onclick="quickAsk('How to file income tax return?')">💰 ITR Filing</span>
+        <span class="chip" onclick="quickAsk('Ayushman Bharat eligibility')">🏥 Ayushman Bharat</span>
+        <span class="chip" onclick="quickAsk('How to update Aadhaar details?')">🆔 Aadhaar Update</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REPORT TAB -->
+<section id="report" class="tab-content">
+  <div class="page-header">
+    <div class="page-header-line"></div>
+    <h2>Register a Public Grievance <span class="hindi-sub">— शिकायत दर्ज करें</span></h2>
+    <p>Report civic issues in your locality. AI will auto-classify and route to the correct municipal department.</p>
+  </div>
+
+  <div class="content-card">
+    <div class="card-header">
+      <span class="card-icon">📋</span>
+      <div>
+        <h3>Grievance Registration Form</h3>
+        <small>All fields marked with <span class="required">*</span> are mandatory</small>
+      </div>
+    </div>
+
+    <form id="reportForm" class="official-form">
+      <div class="form-row">
+        <div class="input-group">
+          <label>Full Name <span class="required">*</span></label>
+          <input type="text" id="userName" placeholder="Enter your full name as per Aadhaar" required />
+        </div>
+        <div class="input-group">
+          <label>Location / Address <span class="required">*</span></label>
+          <input type="text" id="location" placeholder="Sector, City, State, PIN" required />
+        </div>
+      </div>
+      <div class="input-group">
+        <label>Description of Issue <span class="required">*</span></label>
+        <textarea id="issueDesc" placeholder="Please describe the civic issue in detail..." required></textarea>
+      </div>
+      <div class="input-group">
+        <label>Upload Photo Evidence <span class="required">*</span></label>
+        <input type="file" id="issueImage" accept="image/*" required />
+        <small class="help-text">📷 Supported: JPG, PNG · Max 5MB · AI will auto-analyze the image</small>
+      </div>
+      <button type="submit" class="btn-primary btn-large">
+        🚀 Submit Grievance
+      </button>
+    </form>
+    <div id="reportResult" class="result-box"></div>
+  </div>
+</section>
+
+<!-- SCHEMES TAB -->
+<section id="schemes" class="tab-content">
+  <div class="page-header">
+    <div class="page-header-line"></div>
+    <h2>Discover Government Schemes <span class="hindi-sub">— सरकारी योजनाएं खोजें</span></h2>
+    <p>Get personalized recommendations of Central & State government welfare schemes based on your profile.</p>
+  </div>
+
+  <div class="content-card">
+    <div class="card-header">
+      <span class="card-icon">🏛️</span>
+      <div>
+        <h3>Beneficiary Eligibility Check</h3>
+        <small>AI-powered scheme matching · 100% Free</small>
+      </div>
+    </div>
+
+    <form id="schemeForm" class="official-form">
+      <div class="form-row">
+        <div class="input-group">
+          <label>Age <span class="required">*</span></label>
+          <input type="number" id="age" placeholder="e.g. 25" required />
+        </div>
+        <div class="input-group">
+          <label>Gender <span class="required">*</span></label>
+          <select id="gender" required>
+            <option value="">-- Select --</option>
+            <option>male</option><option>female</option><option>other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="input-group">
+          <label>Occupation <span class="required">*</span></label>
+          <input type="text" id="occupation" placeholder="e.g. Farmer, Student, Worker" required />
+        </div>
+        <div class="input-group">
+          <label>Annual Income (₹) <span class="required">*</span></label>
+          <input type="number" id="income" placeholder="e.g. 150000" required />
+        </div>
+      </div>
+      <div class="input-group">
+        <label>State / Union Territory <span class="required">*</span></label>
+        <input type="text" id="state" placeholder="e.g. Uttar Pradesh" required />
+      </div>
+      <button type="submit" class="btn-primary btn-large">
+        ✨ Check My Eligibility
+      </button>
+    </form>
+    <div id="schemeResult" class="result-box"></div>
+  </div>
+</section>
+
+<!-- TRACK TAB -->
+<section id="track" class="tab-content">
+  <div class="page-header">
+    <div class="page-header-line"></div>
+    <h2>Track Grievance Status <span class="hindi-sub">— शिकायत की स्थिति देखें</span></h2>
+    <p>Real-time status of your registered grievances with complete transparency.</p>
+  </div>
+
+  <div class="content-card">
+    <div class="card-header">
+      <span class="card-icon">🔍</span>
+      <div>
+        <h3>Track by Complaint ID</h3>
+        <small>Enter the Complaint ID received during registration</small>
+      </div>
+    </div>
+    <div class="track-input">
+      <input type="text" id="trackId" placeholder="Enter Complaint ID (e.g., SB-A1B2C3D4)" />
+      <button class="btn-primary" onclick="trackComplaint()">🔍 Track Status</button>
+    </div>
+    <div id="trackResult" class="result-box"></div>
+  </div>
+
+  <div class="content-card">
+    <div class="card-header">
+      <span class="card-icon">📊</span>
+      <div>
+        <h3>Public Transparency Dashboard</h3>
+        <small>All grievances registered on the platform</small>
+      </div>
+    </div>
+    <div id="allComplaints" class="complaints-grid"></div>
+  </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer class="gov-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>Smart Bharat</h4>
+        <p>An AI-powered civic companion built to simplify citizen-government interaction across India.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="https://india.gov.in" target="_blank">National Portal</a></li>
+          <li><a href="https://mygov.in" target="_blank">MyGov</a></li>
+          <li><a href="https://digilocker.gov.in" target="_blank">DigiLocker</a></li>
+          <li><a href="https://pgportal.gov.in" target="_blank">CPGRAMS</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <p>📞 Helpline: 1800-XXX-XXXX</p>
+        <p>📧 support@smartbharat.gov.in</p>
+        <p>🕒 Available 24×7</p>
+      </div>
+      <div>
+        <h4>Powered By</h4>
+        <p><strong>Google Gemini AI</strong></p>
+        <p>PromptWars × Devengers</p>
+        <p>Build with AI · 2025</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Smart Bharat | An Initiative for Digital India | 🇮🇳 सत्यमेव जयते</p>
+      <p class="small">This is a hackathon prototype and not an official Government of India website.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

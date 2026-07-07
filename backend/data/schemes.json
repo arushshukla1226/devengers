@@ -1,0 +1,56 @@
+[
+  {
+    "id": "pmkisan",
+    "name": "PM-KISAN Samman Nidhi",
+    "ministry": "Agriculture",
+    "benefit": "₹6000/year to farmer families",
+    "eligibility": {"occupation": "farmer", "min_age": 18},
+    "documents": ["Aadhaar", "Land records", "Bank passbook"],
+    "link": "https://pmkisan.gov.in"
+  },
+  {
+    "id": "ayushman",
+    "name": "Ayushman Bharat PM-JAY",
+    "ministry": "Health",
+    "benefit": "₹5 lakh/year health cover",
+    "eligibility": {"income_max": 250000},
+    "documents": ["Aadhaar", "Ration card"],
+    "link": "https://pmjay.gov.in"
+  },
+  {
+    "id": "ujjwala",
+    "name": "Pradhan Mantri Ujjwala Yojana",
+    "ministry": "Petroleum",
+    "benefit": "Free LPG connection for BPL women",
+    "eligibility": {"gender": "female", "income_max": 200000},
+    "documents": ["Aadhaar", "BPL card", "Bank details"],
+    "link": "https://pmuy.gov.in"
+  },
+  {
+    "id": "sukanya",
+    "name": "Sukanya Samriddhi Yojana",
+    "ministry": "Finance",
+    "benefit": "High-interest savings for girl child",
+    "eligibility": {"gender": "female", "max_age": 10},
+    "documents": ["Birth certificate", "Aadhaar of parent"],
+    "link": "https://www.nsiindia.gov.in"
+  },
+  {
+    "id": "pmay",
+    "name": "PM Awas Yojana",
+    "ministry": "Housing",
+    "benefit": "Subsidy for building/buying home",
+    "eligibility": {"income_max": 1800000},
+    "documents": ["Aadhaar", "Income proof", "Property papers"],
+    "link": "https://pmaymis.gov.in"
+  },
+  {
+    "id": "scholarship",
+    "name": "National Scholarship (NSP)",
+    "ministry": "Education",
+    "benefit": "Scholarships for students",
+    "eligibility": {"occupation": "student", "income_max": 800000},
+    "documents": ["Aadhaar", "Marksheets", "Income certificate"],
+    "link": "https://scholarships.gov.in"
+  }
+]
