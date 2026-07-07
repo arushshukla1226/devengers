@@ -1,347 +1,898 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-<meta charset="UTF-8" />
-<title>Smart Bharat | AI-Powered Civic Companion — Government of India Initiative</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Bharat | AI-Powered Civic Companion</title>
+<meta name="description" content="Smart Bharat — a GenAI civic companion for grievances, government schemes and multilingual citizen support.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%230B1220' stroke='%23FF9933' stroke-width='4'/%3E%3Ccircle cx='50' cy='50' r='6' fill='%23FF9933'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --ink:#0B1220;
+  --ink-2:#101A2E;
+  --panel:#141F38;
+  --panel-2:#182548;
+  --line: rgba(255,255,255,0.09);
+  --saffron:#FF9933;
+  --saffron-2:#FFB25E;
+  --white-ish:#F7F4EC;
+  --green:#1C9E5A;
+  --chakra:#2E5BFF;
+  --tech:#3ED9C4;
+  --text:#EDEEF4;
+  --text-dim:#A7B0C7;
+  --radius: 18px;
+  --radius-sm: 10px;
+  --shadow: 0 20px 60px -20px rgba(0,0,0,0.6);
+  --serif: "Fraunces", "Noto Sans Devanagari", serif;
+  --sans: "Manrope", "Noto Sans Devanagari", sans-serif;
+  --mono: "JetBrains Mono", monospace;
+  --maxw: 1180px;
+  --fs-scale: 1;
+}
+html[data-theme="light"]{
+  --ink:#FAF7F0;
+  --ink-2:#F2ECDD;
+  --panel:#FFFFFF;
+  --panel-2:#FFF9EF;
+  --line: rgba(20,20,30,0.10);
+  --text:#181611;
+  --text-dim:#5B5647;
+  --shadow: 0 20px 50px -25px rgba(60,40,10,0.25);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--ink);
+  color:var(--text);
+  font-family:var(--sans);
+  font-size:calc(16px * var(--fs-scale));
+  line-height:1.55;
+  transition:background .4s ease, color .4s ease;
+  overflow-x:hidden;
+}
+h1,h2,h3,h4{font-family:var(--serif); margin:0; letter-spacing:-0.01em;}
+p{margin:0;}
+a{color:inherit;}
+img{max-width:100%;display:block;}
+button{font-family:inherit;cursor:pointer;}
+.hi{font-family:"Noto Sans Devanagari", var(--serif);}
+::selection{background:var(--saffron); color:#1a1200;}
+:focus-visible{outline:2px solid var(--tech); outline-offset:3px; border-radius:4px;}
+
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px;}
+.tricolor-bar{height:5px; width:100%; background:linear-gradient(90deg,var(--saffron) 33%, var(--white-ish) 33% 66%, var(--green) 66%);}
+
+/* ============ TOPBAR ============ */
+.skip-link{
+  position:absolute; left:-999px; top:0; background:var(--saffron); color:#1a1200;
+  padding:10px 16px; z-index:999; font-weight:700; border-radius:0 0 8px 0;
+}
+.skip-link:focus{left:0;}
+.a11y-bar{
+  background:var(--ink-2); border-bottom:1px solid var(--line);
+  font-size:0.8rem; color:var(--text-dim);
+}
+.a11y-row{display:flex; align-items:center; justify-content:space-between; padding:7px 24px; max-width:var(--maxw); margin:0 auto; flex-wrap:wrap; gap:8px;}
+.a11y-row .tag{display:flex; align-items:center; gap:6px;}
+.a11y-controls{display:flex; gap:14px; align-items:center;}
+.a11y-controls button{background:none; border:none; color:var(--text-dim); font-size:0.8rem; padding:2px 6px;}
+.a11y-controls button:hover{color:var(--saffron);}
+.a11y-controls .fs-group{display:flex; gap:2px; border:1px solid var(--line); border-radius:6px; overflow:hidden;}
+.a11y-controls .fs-group button{padding:2px 8px;}
+.a11y-controls .fs-group button.active{background:var(--saffron); color:#1a1200;}
+
+header.nav{
+  position:sticky; top:0; z-index:100;
+  background:color-mix(in srgb, var(--ink) 82%, transparent);
+  backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.nav-row{display:flex; align-items:center; justify-content:space-between; padding:14px 24px; max-width:var(--maxw); margin:0 auto;}
+.brand{display:flex; align-items:center; gap:12px;}
+.brand .mark{width:38px; height:38px;}
+.brand .mark svg{width:100%; height:100%; animation:spin 34s linear infinite;}
+@keyframes spin{from{transform:rotate(0)} to{transform:rotate(360deg)}}
+.brand .name{font-family:var(--serif); font-weight:700; font-size:1.25rem; line-height:1;}
+.brand .name small{display:block; font-family:var(--sans); font-weight:600; font-size:0.65rem; letter-spacing:0.14em; color:var(--saffron); text-transform:uppercase; margin-top:3px;}
+nav.links{display:flex; gap:28px;}
+nav.links a{font-size:0.88rem; font-weight:600; color:var(--text-dim); text-decoration:none; transition:color .2s;}
+nav.links a:hover{color:var(--saffron);}
+.theme-toggle{
+  border:1px solid var(--line); background:var(--panel); border-radius:999px;
+  width:40px; height:40px; display:flex; align-items:center; justify-content:center;
+  font-size:1rem;
+}
+.nav-actions{display:flex; align-items:center; gap:10px;}
+.burger{display:none; background:none; border:1px solid var(--line); border-radius:8px; width:40px; height:40px; color:var(--text);}
+
+@media (max-width:860px){
+  nav.links{display:none;}
+  .burger{display:flex; align-items:center; justify-content:center;}
+}
+
+/* ============ HERO ============ */
+.hero{position:relative; padding:88px 24px 70px; overflow:hidden;}
+.hero-grid{
+  max-width:var(--maxw); margin:0 auto; display:grid; grid-template-columns:1.15fr 0.85fr; gap:50px; align-items:center; position:relative; z-index:2;
+}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr;}}
+.eyebrow{
+  display:inline-flex; align-items:center; gap:8px; font-size:0.75rem; font-weight:700; letter-spacing:0.12em;
+  text-transform:uppercase; color:var(--saffron); background:rgba(255,153,51,0.1); border:1px solid rgba(255,153,51,0.35);
+  padding:6px 14px; border-radius:999px; margin-bottom:22px;
+}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--green); box-shadow:0 0 0 3px rgba(28,158,90,0.25); animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1} 50%{opacity:.4}}
+.hero h1{font-size:clamp(2.6rem, 5.4vw, 4.4rem); font-weight:700; line-height:1.02;}
+.hero h1 .accent{color:var(--saffron); font-style:italic; font-weight:600;}
+.hero .hindi-sub{font-family:"Noto Sans Devanagari"; font-size:1.4rem; color:var(--text-dim); margin-top:14px; font-weight:600;}
+.hero .lede{max-width:52ch; color:var(--text-dim); font-size:1.08rem; margin-top:22px;}
+.hero-cta{display:flex; gap:14px; margin-top:34px; flex-wrap:wrap;}
+.btn{
+  display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:0.92rem; padding:14px 24px;
+  border-radius:12px; text-decoration:none; border:1px solid transparent; transition:transform .2s ease, box-shadow .2s ease;
+}
+.btn:hover{transform:translateY(-2px);}
+.btn-primary{background:linear-gradient(135deg,var(--saffron),#E67E22); color:#1a1200; box-shadow:0 10px 30px -10px rgba(255,153,51,0.55);}
+.btn-ghost{background:var(--panel); border-color:var(--line); color:var(--text);}
+.hero-stats{display:flex; gap:30px; margin-top:44px; flex-wrap:wrap;}
+.hero-stats div{display:flex; flex-direction:column;}
+.hero-stats b{font-family:var(--serif); font-size:1.7rem; font-weight:700;}
+.hero-stats span{font-size:0.78rem; color:var(--text-dim);}
+
+.chakra-orbit{position:relative; width:100%; aspect-ratio:1/1; max-width:420px; margin:0 auto;}
+.chakra-orbit svg{width:100%; height:100%;}
+.chakra-glow{
+  position:absolute; inset:8%; border-radius:50%;
+  background:radial-gradient(circle, rgba(46,91,255,0.25), transparent 70%);
+  filter:blur(20px);
+}
+.orbit-ring{animation:spin 60s linear infinite;}
+.orbit-ring.rev{animation-direction:reverse; animation-duration:80s;}
+.floating-chip{
+  position:absolute; background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:8px 12px;
+  font-size:0.74rem; font-weight:600; box-shadow:var(--shadow); display:flex; align-items:center; gap:6px;
+  animation:float 5s ease-in-out infinite;
+}
+@keyframes float{0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)}}
+.chip-1{top:6%; left:-4%; animation-delay:.2s;}
+.chip-2{bottom:10%; right:-6%; animation-delay:1.1s;}
+.chip-3{top:46%; right:-10%; animation-delay:2s;}
+@media(max-width:900px){.floating-chip{display:none;}}
+
+.marquee-wrap{border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--panel); overflow:hidden;}
+.marquee{display:flex; white-space:nowrap; animation:marquee 32s linear infinite; padding:12px 0;}
+.marquee span{margin-right:56px; font-size:0.85rem; color:var(--text-dim); font-weight:600;}
+.marquee span b{color:var(--saffron);}
+@keyframes marquee{from{transform:translateX(0)} to{transform:translateX(-50%)}}
+
+/* ============ SECTION SHELL ============ */
+section.block{padding:96px 24px;}
+.block-head{max-width:680px; margin:0 auto 52px; text-align:center;}
+.block-head .kicker{font-size:0.78rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--tech); margin-bottom:10px;}
+.block-head h2{font-size:clamp(1.8rem,3.4vw,2.6rem); font-weight:700;}
+.block-head .hindi-sub{font-family:"Noto Sans Devanagari"; color:var(--text-dim); font-size:1.05rem; margin-top:8px;}
+.block-head p.desc{color:var(--text-dim); margin-top:14px;}
+.panel-card{
+  background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow);
+}
+.reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease;}
+.reveal.in{opacity:1; transform:translateY(0);}
+
+/* ============ CHAT ============ */
+.chat-shell{max-width:820px; margin:0 auto; display:grid; grid-template-columns:220px 1fr; overflow:hidden;}
+@media(max-width:760px){.chat-shell{grid-template-columns:1fr;}}
+.chat-side{background:var(--panel-2); padding:26px 20px; border-right:1px solid var(--line);}
+.chat-side h4{font-size:0.85rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-dim); margin-bottom:14px;}
+.chip-list{display:flex; flex-direction:column; gap:8px;}
+.suggestion-chip{
+  background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:9px 12px; font-size:0.82rem;
+  text-align:left; color:var(--text); transition:border-color .2s, transform .15s;
+}
+.suggestion-chip:hover{border-color:var(--saffron); transform:translateX(3px);}
+.chat-main{display:flex; flex-direction:column; height:520px;}
+.chat-top{display:flex; align-items:center; gap:12px; padding:16px 20px; border-bottom:1px solid var(--line);}
+.chat-avatar{width:40px; height:40px; border-radius:50%; background:linear-gradient(135deg,var(--saffron),var(--green)); display:flex; align-items:center; justify-content:center; font-size:1.2rem;}
+.chat-top .meta b{display:block; font-size:0.95rem;}
+.chat-top .meta span{font-size:0.75rem; color:var(--green); display:flex; align-items:center; gap:5px;}
+.chat-top .meta span::before{content:""; width:7px; height:7px; border-radius:50%; background:var(--green);}
+.chat-log{flex:1; overflow-y:auto; padding:20px; display:flex; flex-direction:column; gap:14px;}
+.msg{max-width:80%; padding:11px 15px; border-radius:14px; font-size:0.92rem; line-height:1.5;}
+.msg.bot{background:var(--panel-2); border:1px solid var(--line); align-self:flex-start; border-bottom-left-radius:4px;}
+.msg.user{background:linear-gradient(135deg,var(--saffron),#e07b1f); color:#1a1200; align-self:flex-end; border-bottom-right-radius:4px; font-weight:600;}
+.msg.typing{display:flex; gap:4px; align-items:center; padding:14px 16px;}
+.msg.typing i{width:6px; height:6px; border-radius:50%; background:var(--text-dim); animation:blink 1.2s infinite;}
+.msg.typing i:nth-child(2){animation-delay:.2s;} .msg.typing i:nth-child(3){animation-delay:.4s;}
+@keyframes blink{0%,100%{opacity:.2} 50%{opacity:1}}
+.chat-input{display:flex; gap:10px; padding:16px 20px; border-top:1px solid var(--line);}
+.chat-input input{
+  flex:1; background:var(--ink-2); border:1px solid var(--line); border-radius:10px; padding:12px 14px; color:var(--text); font-size:0.92rem;
+}
+.chat-input button{background:var(--saffron); border:none; border-radius:10px; padding:0 18px; font-weight:700; color:#1a1200;}
+
+/* ============ FORMS (grievance / scheme) ============ */
+.two-col{display:grid; grid-template-columns:1fr 1fr; gap:0; max-width:980px; margin:0 auto; overflow:hidden;}
+@media(max-width:820px){.two-col{grid-template-columns:1fr;}}
+.form-side{padding:38px 34px;}
+.info-side{
+  padding:38px 34px; background:linear-gradient(160deg, var(--panel-2), var(--ink-2));
+  display:flex; flex-direction:column; justify-content:center; gap:18px; border-right:1px solid var(--line);
+}
+@media(max-width:820px){.info-side{border-right:none; border-bottom:1px solid var(--line);}}
+.info-side .num{font-family:var(--mono); color:var(--tech); font-size:0.8rem; letter-spacing:0.1em;}
+.info-side h3{font-size:1.5rem; margin-top:8px;}
+.info-side ul{margin:16px 0 0; padding:0; list-style:none; display:flex; flex-direction:column; gap:10px;}
+.info-side ul li{font-size:0.88rem; color:var(--text-dim); display:flex; gap:10px;}
+.info-side ul li::before{content:"✦"; color:var(--saffron); flex-shrink:0;}
+
+.field{margin-bottom:16px;}
+.field label{display:block; font-size:0.82rem; font-weight:700; margin-bottom:6px; color:var(--text-dim);}
+.field input, .field select, .field textarea{
+  width:100%; background:var(--ink-2); border:1px solid var(--line); border-radius:10px; padding:11px 13px;
+  color:var(--text); font-size:0.92rem; font-family:inherit;
+}
+.field input:focus, .field select:focus, .field textarea:focus{border-color:var(--saffron);}
+.field small.err{color:#ff6b6b; display:none; font-size:0.76rem; margin-top:4px;}
+.field.invalid input, .field.invalid select, .field.invalid textarea{border-color:#ff6b6b;}
+.field.invalid small.err{display:block;}
+.upload-box{
+  border:1.5px dashed var(--line); border-radius:10px; padding:22px; text-align:center; font-size:0.82rem; color:var(--text-dim); cursor:pointer;
+  transition:border-color .2s;
+}
+.upload-box:hover{border-color:var(--saffron);}
+.upload-box.has-file{border-color:var(--green); color:var(--green);}
+.row-2{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+@media(max-width:480px){.row-2{grid-template-columns:1fr;}}
+.submit-btn{
+  width:100%; background:linear-gradient(135deg,var(--saffron),#E67E22); border:none; padding:14px; border-radius:10px;
+  font-weight:800; font-size:0.95rem; color:#1a1200; margin-top:6px;
+}
+.result-box{
+  margin-top:18px; padding:16px 18px; border-radius:12px; background:rgba(28,158,90,0.1); border:1px solid rgba(28,158,90,0.35);
+  font-size:0.88rem; display:none;
+}
+.result-box.show{display:block;}
+.result-box .id{font-family:var(--mono); font-weight:700; color:var(--green); font-size:1rem;}
+
+/* ============ SCHEME RESULTS ============ */
+.scheme-results{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:16px;}
+@media(max-width:480px){.scheme-results{grid-template-columns:1fr;}}
+.scheme-card{background:var(--ink-2); border:1px solid var(--line); border-radius:10px; padding:12px 14px;}
+.scheme-card b{font-size:0.86rem; display:block;}
+.scheme-card span{font-size:0.76rem; color:var(--text-dim);}
+
+/* ============ TRACK STATUS ============ */
+.track-shell{max-width:760px; margin:0 auto; padding:36px;}
+.track-form{display:flex; gap:12px; flex-wrap:wrap;}
+.track-form input{flex:1; min-width:220px;}
+.timeline{margin-top:30px; display:none;}
+.timeline.show{display:block;}
+.tl-step{display:flex; gap:16px; padding-bottom:26px; position:relative;}
+.tl-step:last-child{padding-bottom:0;}
+.tl-step::before{content:""; position:absolute; left:11px; top:26px; bottom:0; width:2px; background:var(--line);}
+.tl-step:last-child::before{display:none;}
+.tl-dot{width:24px; height:24px; border-radius:50%; background:var(--ink-2); border:2px solid var(--line); flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:0.7rem;}
+.tl-step.done .tl-dot{background:var(--green); border-color:var(--green); color:#08210f;}
+.tl-step.active .tl-dot{background:var(--saffron); border-color:var(--saffron); color:#1a1200; box-shadow:0 0 0 5px rgba(255,153,51,0.18);}
+.tl-content b{display:block; font-size:0.92rem;}
+.tl-content span{font-size:0.78rem; color:var(--text-dim);}
+
+/* ============ DASHBOARD ============ */
+.dash-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; max-width:var(--maxw); margin:0 auto 30px;}
+@media(max-width:900px){.dash-grid{grid-template-columns:repeat(2,1fr);}}
+.dash-card{padding:22px; text-align:center;}
+.dash-card b{font-family:var(--serif); font-size:2.1rem; display:block;}
+.dash-card span{font-size:0.8rem; color:var(--text-dim);}
+.chart-panel{max-width:var(--maxw); margin:0 auto; padding:30px 34px;}
+.chart-panel h4{font-size:1rem; margin-bottom:18px;}
+.bar-row{display:flex; align-items:center; gap:14px; margin-bottom:14px;}
+.bar-row .lbl{width:130px; font-size:0.82rem; color:var(--text-dim); flex-shrink:0;}
+.bar-track{flex:1; height:12px; background:var(--ink-2); border-radius:8px; overflow:hidden;}
+.bar-fill{height:100%; border-radius:8px; background:linear-gradient(90deg,var(--saffron),var(--tech));}
+.bar-row .val{width:44px; text-align:right; font-family:var(--mono); font-size:0.82rem; color:var(--text-dim);}
+
+/* ============ FOOTER ============ */
+footer{border-top:1px solid var(--line); padding:60px 24px 26px; background:var(--ink-2);}
+.foot-grid{max-width:var(--maxw); margin:0 auto; display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:36px;}
+@media(max-width:760px){.foot-grid{grid-template-columns:1fr 1fr;}}
+.foot-grid h5{font-size:0.82rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--saffron); margin-bottom:14px;}
+.foot-grid ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:9px;}
+.foot-grid ul li a{font-size:0.87rem; color:var(--text-dim); text-decoration:none;}
+.foot-grid ul li a:hover{color:var(--text);}
+.foot-bottom{max-width:var(--maxw); margin:40px auto 0; padding-top:22px; border-top:1px solid var(--line); font-size:0.78rem; color:var(--text-dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+.disclaimer{max-width:var(--maxw); margin:14px auto 0; font-size:0.72rem; color:var(--text-dim); opacity:0.7;}
+
+/* toast */
+#toast{
+  position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(120%); background:var(--panel);
+  border:1px solid var(--saffron); padding:12px 22px; border-radius:12px; font-size:0.85rem; z-index:999; box-shadow:var(--shadow);
+  transition:transform .35s ease;
+}
+#toast.show{transform:translateX(-50%) translateY(0);}
+</style>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to main content</a>
 
-<!-- Top Government Bar -->
-<div class="gov-top-bar">
-  <div class="container gov-top-inner">
-    <div class="gov-left">
-      <span>🇮🇳 भारत सरकार | Government of India</span>
-    </div>
-    <div class="gov-right">
-      <a href="#">Skip to Main Content</a>
-      <span>|</span>
-      <a href="#">A-</a> <a href="#">A</a> <a href="#">A+</a>
-      <span>|</span>
-      <a href="#">हिन्दी</a> <a href="#">English</a>
+<div class="a11y-bar">
+  <div class="a11y-row">
+    <div class="tag">🇮🇳 <span data-i18n="govline">Government of India · Digital India Initiative</span></div>
+    <div class="a11y-controls">
+      <div class="fs-group" role="group" aria-label="Text size">
+        <button onclick="setFontScale(0.9)" data-fs="0.9">A-</button>
+        <button onclick="setFontScale(1)" data-fs="1" class="active">A</button>
+        <button onclick="setFontScale(1.15)" data-fs="1.15">A+</button>
+      </div>
+      <button onclick="setLang('hi')" id="lang-hi">हिन्दी</button>
+      <button onclick="setLang('en')" id="lang-en">English</button>
     </div>
   </div>
 </div>
+<div class="tricolor-bar"></div>
 
-<!-- Tricolor Stripe -->
-<div class="tricolor-stripe">
-  <div></div><div></div><div></div>
-</div>
-
-<!-- Main Header with Emblem -->
-<header class="main-header">
-  <div class="container header-inner">
-    <div class="emblem-section">
-      <div class="ashoka">
-        <svg viewBox="0 0 100 100" width="70" height="70">
-          <circle cx="50" cy="50" r="45" fill="none" stroke="#000080" stroke-width="3"/>
-          <circle cx="50" cy="50" r="8" fill="#000080"/>
-          <g stroke="#000080" stroke-width="2">
-            <line x1="50" y1="5" x2="50" y2="95"/>
-            <line x1="5" y1="50" x2="95" y2="50"/>
-            <line x1="18" y1="18" x2="82" y2="82"/>
-            <line x1="82" y1="18" x2="18" y2="82"/>
-            <line x1="27" y1="8" x2="73" y2="92"/>
-            <line x1="73" y1="8" x2="27" y2="92"/>
-            <line x1="8" y1="27" x2="92" y2="73"/>
-            <line x1="92" y1="27" x2="8" y2="73"/>
-            <line x1="12" y1="38" x2="88" y2="62"/>
-            <line x1="88" y1="38" x2="12" y2="62"/>
-            <line x1="38" y1="12" x2="62" y2="88"/>
-            <line x1="62" y1="12" x2="38" y2="88"/>
-          </g>
-        </svg>
+<header class="nav">
+  <div class="nav-row">
+    <div class="brand">
+      <div class="mark">
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke="var(--chakra)" stroke-width="4"/><g stroke="var(--chakra)" stroke-width="2.5">
+          <line x1="50" y1="6" x2="50" y2="94"/><line x1="6" y1="50" x2="94" y2="50"/>
+          <line x1="16" y1="16" x2="84" y2="84"/><line x1="84" y1="16" x2="16" y2="84"/>
+          <line x1="50" y1="6" x2="50" y2="94" transform="rotate(22.5 50 50)"/><line x1="6" y1="50" x2="94" y2="50" transform="rotate(22.5 50 50)"/>
+          <line x1="16" y1="16" x2="84" y2="84" transform="rotate(22.5 50 50)"/><line x1="84" y1="16" x2="16" y2="84" transform="rotate(22.5 50 50)"/>
+        </g><circle cx="50" cy="50" r="6" fill="var(--saffron)"/></svg>
       </div>
-      <div class="header-text">
-        <h1>Smart Bharat</h1>
-        <p class="tagline">स्मार्ट भारत — AI-Powered Civic Companion</p>
-        <p class="subtitle">An Initiative for Digital India · सत्यमेव जयते</p>
-      </div>
+      <div class="name">Smart Bharat<small>Civic Companion · GenAI</small></div>
     </div>
-    <div class="header-badges">
-      <div class="mission-badge">
-        <div class="badge-icon">🎯</div>
-        <div>
-          <strong>Digital India</strong>
-          <small>Powered by Gemini AI</small>
-        </div>
-      </div>
+    <nav class="links">
+      <a href="#chat">Bharat Mitra</a>
+      <a href="#grievance">Grievance</a>
+      <a href="#schemes">Schemes</a>
+      <a href="#track">Track</a>
+      <a href="#dashboard">Dashboard</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
+      <button class="burger" id="burgerBtn" aria-label="Menu">☰</button>
     </div>
   </div>
 </header>
 
-<!-- Navigation Bar -->
-<nav class="nav-bar">
-  <div class="container">
-    <ul class="nav-tabs">
-      <li class="nav-tab active" data-tab="chat">
-        <span class="nav-icon">🗣️</span>
-        <span>Ask Bharat Mitra</span>
-      </li>
-      <li class="nav-tab" data-tab="report">
-        <span class="nav-icon">📋</span>
-        <span>Register Grievance</span>
-      </li>
-      <li class="nav-tab" data-tab="schemes">
-        <span class="nav-icon">🏛️</span>
-        <span>Government Schemes</span>
-      </li>
-      <li class="nav-tab" data-tab="track">
-        <span class="nav-icon">🔍</span>
-        <span>Track Status</span>
-      </li>
-    </ul>
-  </div>
-</nav>
-
-<!-- Notice Ticker -->
-<div class="notice-ticker">
-  <div class="container ticker-inner">
-    <span class="ticker-label">📢 LATEST</span>
-    <div class="ticker-content">
-      <span>✨ New: AI-powered grievance filing now available in 22 Indian languages</span>
-      <span>🎁 Over 100+ government schemes indexed</span>
-      <span>🏆 Powered by Google Gemini AI · Build with AI 2025</span>
-    </div>
-  </div>
-</div>
-
-<!-- Main Content -->
-<main class="container main-content">
-
-<!-- CHAT TAB -->
-<section id="chat" class="tab-content active">
-  <div class="page-header">
-    <div class="page-header-line"></div>
-    <h2>Ask Bharat Mitra <span class="hindi-sub">— भारत मित्र से पूछें</span></h2>
-    <p>Your intelligent civic assistant. Ask about any government service, scheme, or process in your preferred language.</p>
-  </div>
-
-  <div class="content-card">
-    <div class="card-header">
-      <span class="card-icon">💬</span>
+<main id="main">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid">
       <div>
-        <h3>AI Conversation</h3>
-        <small>Multilingual · Instant · Free</small>
+        <div class="eyebrow"><span class="dot"></span> Build with AI · PromptWars × Devengers</div>
+        <h1>Every citizen deserves an answer <span class="accent">in their own language.</span></h1>
+        <p class="hindi-sub hi">हर नागरिक का साथी — स्मार्ट भारत</p>
+        <p class="lede" data-i18n="hero-lede">Smart Bharat is a GenAI civic companion that explains government processes in plain words, files and tracks your grievances, and matches you to welfare schemes you actually qualify for — in 12 Indian languages.</p>
+        <div class="hero-cta">
+          <a href="#chat" class="btn btn-primary">💬 Ask Bharat Mitra</a>
+          <a href="#grievance" class="btn btn-ghost">📋 File a Grievance</a>
+        </div>
+        <div class="hero-stats">
+          <div><b id="statSchemes">118</b><span>Schemes indexed</span></div>
+          <div><b>12</b><span>Languages supported</span></div>
+          <div><b id="statGrievances">4,382</b><span>Grievances resolved</span></div>
+        </div>
       </div>
-      <span class="live-badge"><span class="live-dot"></span>ONLINE</span>
+      <div class="chakra-orbit" aria-hidden="true">
+        <div class="chakra-glow"></div>
+        <svg viewBox="0 0 400 400">
+          <g class="orbit-ring" style="transform-origin:200px 200px;">
+            <circle cx="200" cy="200" r="150" fill="none" stroke="var(--chakra)" stroke-width="2" opacity="0.5"/>
+            <g stroke="var(--chakra)" stroke-width="2.5" opacity="0.8">
+              <line x1="200" y1="60" x2="200" y2="340"/><line x1="60" y1="200" x2="340" y2="200"/>
+              <line x1="94" y1="94" x2="306" y2="306"/><line x1="306" y1="94" x2="94" y2="306"/>
+              <line x1="200" y1="60" x2="200" y2="340" transform="rotate(22.5 200 200)"/>
+              <line x1="60" y1="200" x2="340" y2="200" transform="rotate(22.5 200 200)"/>
+              <line x1="94" y1="94" x2="306" y2="306" transform="rotate(22.5 200 200)"/>
+              <line x1="306" y1="94" x2="94" y2="306" transform="rotate(22.5 200 200)"/>
+            </g>
+          </g>
+          <circle cx="200" cy="200" r="150" fill="none" stroke="var(--saffron)" stroke-width="3"/>
+          <circle cx="200" cy="200" r="20" fill="var(--saffron)"/>
+        </svg>
+        <div class="floating-chip chip-1">🎙️ 22 भाषाएं</div>
+        <div class="floating-chip chip-2">✅ Verified schemes</div>
+        <div class="floating-chip chip-3">🔒 Aadhaar-safe</div>
+      </div>
     </div>
+  </section>
 
-    <div class="chat-box" id="chatBox">
-      <div class="msg bot">
-        <div class="avatar">🇮🇳</div>
-        <div class="msg-content">
-          <div class="msg-name">Bharat Mitra <span class="verified">✓ Verified AI</span></div>
-          <p>नमस्ते 🙏 Namaste! I am <b>Bharat Mitra</b>, your official AI civic assistant.</p>
-          <p>You can ask me about:</p>
-          <ul>
-            <li>📄 Government documents & procedures</li>
-            <li>🎁 Welfare schemes & eligibility</li>
-            <li>🏥 Health, education & subsidy programs</li>
-            <li>📞 Contact information for departments</li>
-          </ul>
-          <p><i>Reply available in 22 Indian languages.</i></p>
+  <div class="marquee-wrap">
+    <div class="marquee" id="marqueeTrack">
+      <span>📢 <b>New:</b> AI grievance filing now live in 12 Indian languages</span>
+      <span>🎁 <b>118+</b> Central &amp; State schemes indexed</span>
+      <span>🏆 Powered by Gemini · Built for Build with AI 2026</span>
+      <span>🔍 Real-time grievance tracking with full transparency</span>
+      <span>📢 <b>New:</b> AI grievance filing now live in 12 Indian languages</span>
+      <span>🎁 <b>118+</b> Central &amp; State schemes indexed</span>
+      <span>🏆 Powered by Gemini · Built for Build with AI 2026</span>
+      <span>🔍 Real-time grievance tracking with full transparency</span>
+    </div>
+  </div>
+
+  <!-- CHAT -->
+  <section class="block" id="chat">
+    <div class="block-head reveal">
+      <div class="kicker">Ask Bharat Mitra</div>
+      <h2>भारत मित्र से पूछें</h2>
+      <p class="desc">Your intelligent civic assistant — ask about any government service, scheme, or process, and get a plain-language answer instantly.</p>
+    </div>
+    <div class="panel-card chat-shell reveal">
+      <div class="chat-side">
+        <h4>Popular Queries</h4>
+        <div class="chip-list">
+          <button class="suggestion-chip" data-q="passport">🛂 Passport Application</button>
+          <button class="suggestion-chip" data-q="ration">🍚 राशन कार्ड (Ration Card)</button>
+          <button class="suggestion-chip" data-q="pmkisan">🌾 PM-KISAN Status</button>
+          <button class="suggestion-chip" data-q="itr">💰 ITR Filing Deadline</button>
+          <button class="suggestion-chip" data-q="ayushman">🏥 Ayushman Bharat</button>
+          <button class="suggestion-chip" data-q="aadhaar">🆔 Aadhaar Update</button>
+        </div>
+      </div>
+      <div class="chat-main">
+        <div class="chat-top">
+          <div class="chat-avatar">🤖</div>
+          <div class="meta"><b>Bharat Mitra</b><span>Online · Verified AI</span></div>
+        </div>
+        <div class="chat-log" id="chatLog">
+          <div class="msg bot">नमस्ते 🙏 Namaste! I'm <b>Bharat Mitra</b>, your AI civic assistant. Ask me about documents, schemes, subsidies, or any department contact — I'll explain it simply.</div>
+        </div>
+        <div class="chat-input">
+          <input type="text" id="chatInput" placeholder="Type your question… e.g. How do I apply for a new ration card?" aria-label="Ask Bharat Mitra">
+          <button id="chatSend">Ask ➤</button>
         </div>
       </div>
     </div>
+  </section>
 
-    <div class="chat-input-wrapper">
-      <input id="chatInput" placeholder="Type your question in any language..." />
-      <button class="btn-primary" onclick="sendChat()">
-        Submit Query
-        <span>➤</span>
-      </button>
+  <!-- GRIEVANCE -->
+  <section class="block" id="grievance" style="background:var(--ink-2);">
+    <div class="block-head reveal">
+      <div class="kicker">Register a Public Grievance</div>
+      <h2>शिकायत दर्ज करें</h2>
+      <p class="desc">Report a civic issue in your locality. Our AI classifies it and routes it to the correct municipal department automatically.</p>
     </div>
-
-    <div class="quick-section">
-      <p class="quick-label">🔥 POPULAR QUERIES</p>
-      <div class="quick-prompts">
-        <span class="chip" onclick="quickAsk('How do I apply for a passport?')">🛂 Passport Application</span>
-        <span class="chip" onclick="quickAsk('मुझे राशन कार्ड कैसे मिलेगा?')">🍚 राशन कार्ड</span>
-        <span class="chip" onclick="quickAsk('PM Kisan Yojana details')">🌾 PM-KISAN</span>
-        <span class="chip" onclick="quickAsk('How to file income tax return?')">💰 ITR Filing</span>
-        <span class="chip" onclick="quickAsk('Ayushman Bharat eligibility')">🏥 Ayushman Bharat</span>
-        <span class="chip" onclick="quickAsk('How to update Aadhaar details?')">🆔 Aadhaar Update</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- REPORT TAB -->
-<section id="report" class="tab-content">
-  <div class="page-header">
-    <div class="page-header-line"></div>
-    <h2>Register a Public Grievance <span class="hindi-sub">— शिकायत दर्ज करें</span></h2>
-    <p>Report civic issues in your locality. AI will auto-classify and route to the correct municipal department.</p>
-  </div>
-
-  <div class="content-card">
-    <div class="card-header">
-      <span class="card-icon">📋</span>
-      <div>
-        <h3>Grievance Registration Form</h3>
-        <small>All fields marked with <span class="required">*</span> are mandatory</small>
-      </div>
-    </div>
-
-    <form id="reportForm" class="official-form">
-      <div class="form-row">
-        <div class="input-group">
-          <label>Full Name <span class="required">*</span></label>
-          <input type="text" id="userName" placeholder="Enter your full name as per Aadhaar" required />
-        </div>
-        <div class="input-group">
-          <label>Location / Address <span class="required">*</span></label>
-          <input type="text" id="location" placeholder="Sector, City, State, PIN" required />
-        </div>
-      </div>
-      <div class="input-group">
-        <label>Description of Issue <span class="required">*</span></label>
-        <textarea id="issueDesc" placeholder="Please describe the civic issue in detail..." required></textarea>
-      </div>
-      <div class="input-group">
-        <label>Upload Photo Evidence <span class="required">*</span></label>
-        <input type="file" id="issueImage" accept="image/*" required />
-        <small class="help-text">📷 Supported: JPG, PNG · Max 5MB · AI will auto-analyze the image</small>
-      </div>
-      <button type="submit" class="btn-primary btn-large">
-        🚀 Submit Grievance
-      </button>
-    </form>
-    <div id="reportResult" class="result-box"></div>
-  </div>
-</section>
-
-<!-- SCHEMES TAB -->
-<section id="schemes" class="tab-content">
-  <div class="page-header">
-    <div class="page-header-line"></div>
-    <h2>Discover Government Schemes <span class="hindi-sub">— सरकारी योजनाएं खोजें</span></h2>
-    <p>Get personalized recommendations of Central & State government welfare schemes based on your profile.</p>
-  </div>
-
-  <div class="content-card">
-    <div class="card-header">
-      <span class="card-icon">🏛️</span>
-      <div>
-        <h3>Beneficiary Eligibility Check</h3>
-        <small>AI-powered scheme matching · 100% Free</small>
-      </div>
-    </div>
-
-    <form id="schemeForm" class="official-form">
-      <div class="form-row">
-        <div class="input-group">
-          <label>Age <span class="required">*</span></label>
-          <input type="number" id="age" placeholder="e.g. 25" required />
-        </div>
-        <div class="input-group">
-          <label>Gender <span class="required">*</span></label>
-          <select id="gender" required>
-            <option value="">-- Select --</option>
-            <option>male</option><option>female</option><option>other</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="input-group">
-          <label>Occupation <span class="required">*</span></label>
-          <input type="text" id="occupation" placeholder="e.g. Farmer, Student, Worker" required />
-        </div>
-        <div class="input-group">
-          <label>Annual Income (₹) <span class="required">*</span></label>
-          <input type="number" id="income" placeholder="e.g. 150000" required />
-        </div>
-      </div>
-      <div class="input-group">
-        <label>State / Union Territory <span class="required">*</span></label>
-        <input type="text" id="state" placeholder="e.g. Uttar Pradesh" required />
-      </div>
-      <button type="submit" class="btn-primary btn-large">
-        ✨ Check My Eligibility
-      </button>
-    </form>
-    <div id="schemeResult" class="result-box"></div>
-  </div>
-</section>
-
-<!-- TRACK TAB -->
-<section id="track" class="tab-content">
-  <div class="page-header">
-    <div class="page-header-line"></div>
-    <h2>Track Grievance Status <span class="hindi-sub">— शिकायत की स्थिति देखें</span></h2>
-    <p>Real-time status of your registered grievances with complete transparency.</p>
-  </div>
-
-  <div class="content-card">
-    <div class="card-header">
-      <span class="card-icon">🔍</span>
-      <div>
-        <h3>Track by Complaint ID</h3>
-        <small>Enter the Complaint ID received during registration</small>
-      </div>
-    </div>
-    <div class="track-input">
-      <input type="text" id="trackId" placeholder="Enter Complaint ID (e.g., SB-A1B2C3D4)" />
-      <button class="btn-primary" onclick="trackComplaint()">🔍 Track Status</button>
-    </div>
-    <div id="trackResult" class="result-box"></div>
-  </div>
-
-  <div class="content-card">
-    <div class="card-header">
-      <span class="card-icon">📊</span>
-      <div>
-        <h3>Public Transparency Dashboard</h3>
-        <small>All grievances registered on the platform</small>
-      </div>
-    </div>
-    <div id="allComplaints" class="complaints-grid"></div>
-  </div>
-</section>
-
-</main>
-
-<!-- Footer -->
-<footer class="gov-footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <h4>Smart Bharat</h4>
-        <p>An AI-powered civic companion built to simplify citizen-government interaction across India.</p>
-      </div>
-      <div>
-        <h4>Quick Links</h4>
+    <div class="panel-card two-col reveal">
+      <div class="info-side">
+        <div class="num">HOW IT WORKS</div>
+        <h3>From report to resolution</h3>
         <ul>
-          <li><a href="https://india.gov.in" target="_blank">National Portal</a></li>
-          <li><a href="https://mygov.in" target="_blank">MyGov</a></li>
-          <li><a href="https://digilocker.gov.in" target="_blank">DigiLocker</a></li>
-          <li><a href="https://pgportal.gov.in" target="_blank">CPGRAMS</a></li>
+          <li>AI reads your description and photo to classify the issue type</li>
+          <li>Auto-routed to the correct municipal ward &amp; department</li>
+          <li>You receive a trackable Complaint ID instantly</li>
+          <li>Status updates in real time until resolution</li>
         </ul>
       </div>
-      <div>
-        <h4>Support</h4>
-        <p>📞 Helpline: 1800-XXX-XXXX</p>
-        <p>📧 support@smartbharat.gov.in</p>
-        <p>🕒 Available 24×7</p>
-      </div>
-      <div>
-        <h4>Powered By</h4>
-        <p><strong>Google Gemini AI</strong></p>
-        <p>PromptWars × Devengers</p>
-        <p>Build with AI · 2025</p>
+      <div class="form-side">
+        <form id="grievanceForm" novalidate>
+          <div class="field" data-field="name">
+            <label for="g-name">Full Name *</label>
+            <input id="g-name" type="text" placeholder="e.g. Arush Sharma">
+            <small class="err">Please enter your full name.</small>
+          </div>
+          <div class="field" data-field="location">
+            <label for="g-loc">Location / Address *</label>
+            <input id="g-loc" type="text" placeholder="Ward, area, city, pincode">
+            <small class="err">Please enter the issue location.</small>
+          </div>
+          <div class="field" data-field="desc">
+            <label for="g-desc">Description of Issue *</label>
+            <textarea id="g-desc" rows="3" placeholder="Describe the civic issue in detail…"></textarea>
+            <small class="err">Please describe the issue (min 10 characters).</small>
+          </div>
+          <div class="field">
+            <label>Upload Photo Evidence</label>
+            <div class="upload-box" id="uploadBox">📷 Click to attach a photo · JPG/PNG · Max 5MB</div>
+            <input type="file" id="g-photo" accept="image/*" style="display:none;">
+          </div>
+          <button type="submit" class="submit-btn">🚀 Submit Grievance</button>
+          <div class="result-box" id="grievanceResult"></div>
+        </form>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p>© 2025 Smart Bharat | An Initiative for Digital India | 🇮🇳 सत्यमेव जयते</p>
-      <p class="small">This is a hackathon prototype and not an official Government of India website.</p>
+  </section>
+
+  <!-- SCHEMES -->
+  <section class="block" id="schemes">
+    <div class="block-head reveal">
+      <div class="kicker">Discover Government Schemes</div>
+      <h2>सरकारी योजनाएं खोजें</h2>
+      <p class="desc">Get a personalised match of Central &amp; State welfare schemes based on your profile — 100% free, no login required.</p>
+    </div>
+    <div class="panel-card two-col reveal">
+      <div class="form-side">
+        <form id="schemeForm" novalidate>
+          <div class="row-2">
+            <div class="field" data-field="age">
+              <label for="s-age">Age *</label>
+              <input id="s-age" type="number" min="1" max="110" placeholder="e.g. 34">
+              <small class="err">Enter a valid age.</small>
+            </div>
+            <div class="field" data-field="gender">
+              <label for="s-gender">Gender *</label>
+              <select id="s-gender">
+                <option value="">-- Select --</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+              <small class="err">Please select a gender.</small>
+            </div>
+          </div>
+          <div class="field" data-field="occupation">
+            <label for="s-occ">Occupation *</label>
+            <select id="s-occ">
+              <option value="">-- Select --</option>
+              <option value="farmer">Farmer</option>
+              <option value="student">Student</option>
+              <option value="self-employed">Self-employed / Small business</option>
+              <option value="salaried">Salaried employee</option>
+              <option value="unemployed">Unemployed</option>
+              <option value="homemaker">Homemaker</option>
+            </select>
+            <small class="err">Please select an occupation.</small>
+          </div>
+          <div class="row-2">
+            <div class="field" data-field="income">
+              <label for="s-income">Annual Income (₹) *</label>
+              <input id="s-income" type="number" min="0" placeholder="e.g. 180000">
+              <small class="err">Enter your annual income.</small>
+            </div>
+            <div class="field" data-field="state">
+              <label for="s-state">State / UT *</label>
+              <select id="s-state">
+                <option value="">-- Select --</option>
+                <option>Uttar Pradesh</option><option>Maharashtra</option><option>Bihar</option>
+                <option>Rajasthan</option><option>Tamil Nadu</option><option>Karnataka</option>
+                <option>West Bengal</option><option>Gujarat</option><option>Other</option>
+              </select>
+              <small class="err">Please select a state.</small>
+            </div>
+          </div>
+          <button type="submit" class="submit-btn">✨ Check My Eligibility</button>
+        </form>
+        <div id="schemeResults" class="scheme-results"></div>
+      </div>
+      <div class="info-side" style="border-right:none; border-left:1px solid var(--line);">
+        <div class="num">WHY IT MATTERS</div>
+        <h3>Most citizens miss schemes they qualify for</h3>
+        <ul>
+          <li>Our matching engine cross-checks age, income, occupation and state</li>
+          <li>Covers agriculture, health, education, housing and pension schemes</li>
+          <li>Explains eligibility and documents needed in plain language</li>
+          <li>No personal data is stored on our servers</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRACK -->
+  <section class="block" id="track" style="background:var(--ink-2);">
+    <div class="block-head reveal">
+      <div class="kicker">Track Grievance Status</div>
+      <h2>शिकायत की स्थिति देखें</h2>
+      <p class="desc">Enter the Complaint ID you received during registration to see real-time status.</p>
+    </div>
+    <div class="panel-card track-shell reveal">
+      <div class="track-form">
+        <input type="text" id="trackId" placeholder="e.g. SB-2026-104829">
+        <button class="submit-btn" style="width:auto; padding:12px 22px;" id="trackBtn">🔍 Track Status</button>
+      </div>
+      <div class="timeline" id="timeline"></div>
+    </div>
+  </section>
+
+  <!-- DASHBOARD -->
+  <section class="block" id="dashboard">
+    <div class="block-head reveal">
+      <div class="kicker">Public Transparency Dashboard</div>
+      <h2>Platform activity, in the open</h2>
+      <p class="desc">Aggregate, anonymised numbers from every grievance and query submitted on Smart Bharat.</p>
+    </div>
+    <div class="dash-grid reveal">
+      <div class="panel-card dash-card"><b id="dashTotal">4,382</b><span>Grievances resolved</span></div>
+      <div class="panel-card dash-card"><b id="dashPending">312</b><span>Currently in progress</span></div>
+      <div class="panel-card dash-card"><b>91%</b><span>Resolution rate</span></div>
+      <div class="panel-card dash-card"><b>2.4 days</b><span>Avg. resolution time</span></div>
+    </div>
+    <div class="panel-card chart-panel reveal">
+      <h4>Grievances by category (this month)</h4>
+      <div id="chartArea"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="foot-grid">
+    <div>
+      <h5>Smart Bharat</h5>
+      <p style="color:var(--text-dim); font-size:0.87rem; max-width:32ch;">An AI-powered civic companion built to simplify citizen–government interaction across India.</p>
+    </div>
+    <div>
+      <h5>Quick Links</h5>
+      <ul>
+        <li><a href="https://india.gov.in" target="_blank" rel="noopener">National Portal</a></li>
+        <li><a href="https://mygov.in" target="_blank" rel="noopener">MyGov</a></li>
+        <li><a href="https://digilocker.gov.in" target="_blank" rel="noopener">DigiLocker</a></li>
+        <li><a href="https://pgportal.gov.in" target="_blank" rel="noopener">CPGRAMS</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Support</h5>
+      <ul>
+        <li>📞 Helpline: 1800-11-XXXX</li>
+        <li>📧 support@smartbharat.gov.in</li>
+        <li>🕒 Available 24×7</li>
+      </ul>
+    </div>
+    <div>
+      <h5>Powered By</h5>
+      <ul>
+        <li>Google Gemini AI</li>
+        <li>PromptWars × Devengers</li>
+        <li>Build with AI · 2026</li>
+      </ul>
     </div>
   </div>
+  <div class="foot-bottom">
+    <span>© 2026 Smart Bharat · An Initiative for Digital India · 🇮🇳 सत्यमेव जयते</span>
+    <span>Made for PromptWars × Devengers</span>
+  </div>
+  <p class="disclaimer">This is a hackathon prototype and not an official Government of India website.</p>
 </footer>
 
-<script src="app.js"></script>
+<div id="toast"></div>
+<script>
+/* ============ THEME ============ */
+const root = document.documentElement;
+const themeToggle = document.getElementById('themeToggle');
+function applyTheme(t){ root.setAttribute('data-theme', t); themeToggle.textContent = t==='dark' ? '🌙' : '☀️'; localStorage.setItem('sb-theme', t); }
+themeToggle.addEventListener('click', ()=> applyTheme(root.getAttribute('data-theme')==='dark' ? 'light' : 'dark'));
+applyTheme(localStorage.getItem('sb-theme') || 'dark');
+
+/* ============ FONT SCALE ============ */
+function setFontScale(v){
+  root.style.setProperty('--fs-scale', v);
+  document.querySelectorAll('.fs-group button').forEach(b=> b.classList.toggle('active', parseFloat(b.dataset.fs)===v));
+}
+
+/* ============ LANGUAGE ============ */
+const dict = {
+  en:{ govline:"Government of India · Digital India Initiative",
+       "hero-lede":"Smart Bharat is a GenAI civic companion that explains government processes in plain words, files and tracks your grievances, and matches you to welfare schemes you actually qualify for — in 12 Indian languages." },
+  hi:{ govline:"भारत सरकार · डिजिटल इंडिया पहल",
+       "hero-lede":"स्मार्ट भारत एक GenAI नागरिक सहायक है जो सरकारी प्रक्रियाओं को सरल भाषा में समझाता है, आपकी शिकायतें दर्ज व ट्रैक करता है, और आपके लिए उपयुक्त सरकारी योजनाओं से मिलाता है — 12 भारतीय भाषाओं में।" }
+};
+function setLang(l){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    if(dict[l] && dict[l][key]) el.textContent = dict[l][key];
+  });
+  document.getElementById('lang-hi').style.color = l==='hi' ? 'var(--saffron)' : '';
+  document.getElementById('lang-en').style.color = l==='en' ? 'var(--saffron)' : '';
+}
+setLang('en');
+
+/* ============ SCROLL REVEAL ============ */
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
+
+/* ============ TOAST ============ */
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(()=> t.classList.remove('show'), 3200);
+}
+
+/* ============ CHAT (Bharat Mitra) ============ */
+const chatLog = document.getElementById('chatLog');
+const chatInput = document.getElementById('chatInput');
+const chatSend = document.getElementById('chatSend');
+
+const answers = {
+  passport:"For a fresh passport: apply on the Passport Seva portal, book a slot at your nearest Passport Seva Kendra, and carry Aadhaar + address + birth proof. Normal processing takes about 30–45 days; Tatkal is faster with an extra fee.",
+  ration:"To apply for a new ration card, visit your State's Food & Civil Supplies portal or nearest Fair Price Shop office with Aadhaar, address proof and family photo. Processing usually takes 15–30 days depending on your state.",
+  pmkisan:"Under PM-KISAN, eligible farmer families get ₹6,000/year in 3 instalments directly to their bank account. Check your status anytime on the PM-KISAN portal using your Aadhaar number.",
+  itr:"The usual due date for individual ITR filing (non-audit cases) is 31 July of the assessment year — always check the latest CBDT circular, as deadlines are sometimes extended.",
+  ayushman:"Ayushman Bharat (PM-JAY) offers ₹5 lakh/year free health cover per family at empanelled hospitals. Check eligibility with your ration card or SECC data on the PM-JAY portal or nearest Common Service Centre.",
+  aadhaar:"You can update Aadhaar details (address, phone, photo) online via the myAadhaar portal for most fields, or visit an Aadhaar Seva Kendra for biometric updates. Carry valid proof of the detail being changed."
+};
+const fallbacks = [
+  "That's a great question — for the most accurate, up-to-date process I'd recommend checking the relevant department portal, but broadly you'll need identity proof, address proof, and to apply through the official State or Central portal.",
+  "I can help you with documents, schemes, subsidies and department contacts. Could you tell me a bit more — for example, which state you're in or which document you need?"
+];
+function addMsg(text, who){
+  const d = document.createElement('div');
+  d.className = 'msg ' + who;
+  d.textContent = text;
+  chatLog.appendChild(d);
+  chatLog.scrollTop = chatLog.scrollHeight;
+  return d;
+}
+function botReply(query){
+  const typing = document.createElement('div');
+  typing.className = 'msg bot typing';
+  typing.innerHTML = '<i></i><i></i><i></i>';
+  chatLog.appendChild(typing);
+  chatLog.scrollTop = chatLog.scrollHeight;
+  setTimeout(()=>{
+    typing.remove();
+    const q = query.toLowerCase();
+    let reply = null;
+    for(const key in answers){ if(q.includes(key)) { reply = answers[key]; break; } }
+    if(!reply){
+      if(q.includes("ration") || q.includes("राशन")) reply = answers.ration;
+      else if(q.includes("kisan") || q.includes("farmer")) reply = answers.pmkisan;
+      else if(q.includes("health") || q.includes("hospital")) reply = answers.ayushman;
+      else if(q.includes("tax")) reply = answers.itr;
+      else if(q.includes("passport")) reply = answers.passport;
+      else reply = fallbacks[Math.floor(Math.random()*fallbacks.length)];
+    }
+    addMsg(reply, 'bot');
+  }, 850);
+}
+chatSend.addEventListener('click', ()=>{
+  const val = chatInput.value.trim();
+  if(!val) return;
+  addMsg(val, 'user');
+  chatInput.value='';
+  botReply(val);
+});
+chatInput.addEventListener('keydown', e=>{ if(e.key==='Enter') chatSend.click(); });
+document.querySelectorAll('.suggestion-chip').forEach(chip=>{
+  chip.addEventListener('click', ()=>{
+    const key = chip.dataset.q;
+    const label = chip.textContent.trim();
+    addMsg(label, 'user');
+    setTimeout(()=>botReply(key), 200);
+  });
+});
+
+/* ============ GRIEVANCE FORM ============ */
+const uploadBox = document.getElementById('uploadBox');
+const photoInput = document.getElementById('g-photo');
+uploadBox.addEventListener('click', ()=> photoInput.click());
+photoInput.addEventListener('change', ()=>{
+  if(photoInput.files.length){
+    uploadBox.textContent = '✅ ' + photoInput.files[0].name + ' attached';
+    uploadBox.classList.add('has-file');
+  }
+});
+function validateField(fieldEl, isValid){
+  fieldEl.classList.toggle('invalid', !isValid);
+  return isValid;
+}
+document.getElementById('grievanceForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const name = document.getElementById('g-name');
+  const loc = document.getElementById('g-loc');
+  const desc = document.getElementById('g-desc');
+  let ok = true;
+  ok = validateField(name.closest('.field'), name.value.trim().length>1) && ok;
+  ok = validateField(loc.closest('.field'), loc.value.trim().length>3) && ok;
+  ok = validateField(desc.closest('.field'), desc.value.trim().length>=10) && ok;
+  if(!ok) return;
+  const id = 'SB-' + new Date().getFullYear() + '-' + Math.floor(100000+Math.random()*900000);
+  const record = { id, name:name.value.trim(), location:loc.value.trim(), desc:desc.value.trim(), status:0, created:Date.now() };
+  const store = JSON.parse(localStorage.getItem('sb-grievances') || '[]');
+  store.push(record);
+  localStorage.setItem('sb-grievances', JSON.stringify(store));
+  const box = document.getElementById('grievanceResult');
+  box.innerHTML = '✅ Grievance registered successfully. Your Complaint ID: <span class="id">'+id+'</span><br>Save this ID to track status below.';
+  box.classList.add('show');
+  toast('Grievance submitted · ID '+id);
+  this.reset();
+  uploadBox.textContent = '📷 Click to attach a photo · JPG/PNG · Max 5MB';
+  uploadBox.classList.remove('has-file');
+});
+
+/* ============ SCHEME MATCHING ============ */
+const SCHEMES = [
+  {name:"PM-KISAN Samman Nidhi", note:"₹6,000/yr income support", cond:p=> p.occ==='farmer'},
+  {name:"PMAY (Housing for All)", note:"Subsidised home loan interest", cond:p=> p.income<300000},
+  {name:"Ayushman Bharat (PM-JAY)", note:"₹5L/yr health cover", cond:p=> p.income<250000},
+  {name:"National Scholarship Portal", note:"Merit & means scholarships", cond:p=> p.occ==='student'},
+  {name:"Stand-Up India", note:"Loans for SC/ST & women entrepreneurs", cond:p=> p.occ==='self-employed'},
+  {name:"Atal Pension Yojana", note:"Guaranteed pension scheme", cond:p=> p.age>=18 && p.age<=40},
+  {name:"PM Ujjwala Yojana", note:"Free LPG connection", cond:p=> p.gender==='female' && p.income<200000},
+  {name:"Mudra Loan Yojana", note:"Collateral-free micro loans", cond:p=> p.occ==='self-employed' || p.occ==='unemployed'},
+  {name:"National Pension Scheme", note:"Retirement savings for salaried", cond:p=> p.occ==='salaried'},
+  {name:"Sukanya Samriddhi Yojana", note:"Savings scheme for girl child welfare", cond:p=> p.gender==='female'},
+  {name:"Old Age Pension Scheme", note:"Monthly pension support", cond:p=> p.age>=60}
+];
+document.getElementById('schemeForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  const age = document.getElementById('s-age');
+  const gender = document.getElementById('s-gender');
+  const occ = document.getElementById('s-occ');
+  const income = document.getElementById('s-income');
+  const state = document.getElementById('s-state');
+  let ok = true;
+  ok = validateField(age.closest('.field'), age.value && +age.value>0) && ok;
+  ok = validateField(gender.closest('.field'), !!gender.value) && ok;
+  ok = validateField(occ.closest('.field'), !!occ.value) && ok;
+  ok = validateField(income.closest('.field'), income.value!=='' && +income.value>=0) && ok;
+  ok = validateField(state.closest('.field'), !!state.value) && ok;
+  if(!ok) return;
+  const profile = { age:+age.value, gender:gender.value, occ:occ.value, income:+income.value, state:state.value };
+  const matches = SCHEMES.filter(s=> s.cond(profile));
+  const results = document.getElementById('schemeResults');
+  results.innerHTML = '';
+  if(matches.length===0){
+    results.innerHTML = '<div class="scheme-card">No exact matches found — try the National Portal for a full scheme list.</div>';
+  } else {
+    matches.forEach(m=>{
+      const c = document.createElement('div');
+      c.className = 'scheme-card';
+      c.innerHTML = '<b>✅ '+m.name+'</b><span>'+m.note+'</span>';
+      results.appendChild(c);
+    });
+    toast(matches.length + ' matching scheme(s) found for your profile');
+  }
+});
+
+/* ============ TRACK STATUS ============ */
+const statusStages = ['Filed','Acknowledged','Assigned to Department','In Progress','Resolved'];
+document.getElementById('trackBtn').addEventListener('click', ()=>{
+  const idVal = document.getElementById('trackId').value.trim().toUpperCase();
+  const timeline = document.getElementById('timeline');
+  if(!idVal){ toast('Please enter a Complaint ID'); return; }
+  const store = JSON.parse(localStorage.getItem('sb-grievances') || '[]');
+  const record = store.find(r=> r.id.toUpperCase()===idVal);
+  let stageIndex;
+  if(record){
+    const hours = (Date.now()-record.created)/3600000;
+    stageIndex = Math.min(4, Math.floor(hours/2)); // simulate progression
+  } else {
+    // deterministic pseudo-status for any well-formed but unknown ID, for demo purposes
+    let hash=0; for(const ch of idVal){ hash = (hash*31 + ch.charCodeAt(0)) % 997; }
+    stageIndex = hash % statusStages.length;
+  }
+  timeline.innerHTML = '';
+  statusStages.forEach((label, i)=>{
+    const step = document.createElement('div');
+    step.className = 'tl-step ' + (i<stageIndex ? 'done' : i===stageIndex ? 'active' : '');
+    step.innerHTML = '<div class="tl-dot">'+(i<stageIndex ? '✓' : (i+1))+'</div><div class="tl-content"><b>'+label+'</b><span>'+(i<=stageIndex ? 'Completed / Current stage' : 'Pending')+'</span></div>';
+    timeline.appendChild(step);
+  });
+  timeline.classList.add('show');
+  toast('Showing status for ' + idVal);
+});
+
+/* ============ DASHBOARD CHART ============ */
+const categories = [
+  {label:'Roads & Potholes', val:34}, {label:'Water Supply', val:26},
+  {label:'Sanitation', val:21}, {label:'Electricity', val:12}, {label:'Others', val:7}
+];
+const chartArea = document.getElementById('chartArea');
+categories.forEach(c=>{
+  const row = document.createElement('div');
+  row.className = 'bar-row';
+  row.innerHTML = '<div class="lbl">'+c.label+'</div><div class="bar-track"><div class="bar-fill" style="width:0%"></div></div><div class="val">'+c.val+'%</div>';
+  chartArea.appendChild(row);
+  requestAnimationFrame(()=> setTimeout(()=>{ row.querySelector('.bar-fill').style.width = c.val+'%'; row.querySelector('.bar-fill').style.transition='width 1.1s ease'; }, 100));
+});
+
+// reflect any locally-stored grievances in the hero/dashboard counters (adds realism to the demo)
+(function(){
+  const store = JSON.parse(localStorage.getItem('sb-grievances') || '[]');
+  if(store.length){
+    document.getElementById('statGrievances').textContent = (4382+store.length).toLocaleString();
+    document.getElementById('dashTotal').textContent = (4382+store.length).toLocaleString();
+  }
+})();
+</script>
 </body>
 </html>
