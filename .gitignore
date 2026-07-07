@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+env/
+.venv/
+
+# Environment variables - NEVER commit
+.env
+
+# Vercel
+.vercel/
+
+# IDE
+.vscode/
+.idea/

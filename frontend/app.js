@@ -1,4 +1,8 @@
-const API = "http://localhost:8000/api";
+// In production (Vercel monorepo): API lives at /api on the same domain
+// For local dev: run backend on port 8000 and update this to http://localhost:8000/api
+const API = window.location.hostname === "localhost"
+  ? "http://localhost:8000/api"
+  : "/api";
 let chatHistory = [];
 
 // Tabs
@@ -63,11 +67,8 @@ function escapeHtml(text) {
   return div.innerHTML.replace(/\n/g, '<br/>');
 }
 
-function escapeHtml(text) {
-  const div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML.replace(/\n/g, '<br/>');
-}
+
+
 function removeThinking() { document.getElementById("thinking")?.remove(); }
 function quickAsk(q) { document.getElementById("chatInput").value = q; sendChat(); }
 document.getElementById("chatInput").addEventListener("keypress", e => { if (e.key === "Enter") sendChat(); });
